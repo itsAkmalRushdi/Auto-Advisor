@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AutoAdvisor</title>
+<style>
+body{
+font-family: Arial;
+text-align:center;
+margin-top:100px;
+}
+
+input,button{
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+#result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>AutoAdvisor</h1>
+<p>Car Price Prediction</p>
+
+<input id="brand" placeholder="Enter Car Brand">
+<br>
+
+<input id="year" placeholder="Enter Year">
+<br>
+
+<button onclick="predict()">Predict Price</button>
+
+<div id="result"></div>
+
+<script>
+async function predict(){
+
+let brand = document.getElementById("brand").value;
+let year = document.getElementById("year").value;
+
+let response = await fetch(
+`http://127.0.0.1:8000/predict?brand=${brand}&year=${year}`
+);
+
+let data = await response.json();
+
+document.getElementById("result").innerText =
+"Estimated Price: LKR " + data.estimated_price;
+
+}
+</script>
+
+</body>
+</html>
